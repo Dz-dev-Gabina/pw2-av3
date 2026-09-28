@@ -32,9 +32,12 @@ public class ExercicioFIsicoController {
     }
 
     @GetMapping("/{id}")
-    public Optional<ExercicioFisico> buscarPorId(@PathVariable Long id) {
-        return repository.findById(id);
+    public ResponseEntity<ExercicioFisico> buscarPorId(@PathVariable Long id) {
+        return repository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
+
     @GetMapping("/niveis")
     public ResponseEntity<List<NivelDificuldadeEnum>> listarNiveis() {
         return ResponseEntity.ok(Arrays.asList(NivelDificuldadeEnum.values()));
