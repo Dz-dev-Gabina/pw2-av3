@@ -2,7 +2,7 @@ create database pw2_av3;
 use pw2_av3;
 
 create table exercicio_fisico (
-	id int identity(1,1) not null,
+	id bigint identity(1,1) not null,
 	nome varchar(100) not null,
 	grupo_muscular varchar(50) not null,
 	imagem varchar(255) null,
@@ -22,3 +22,9 @@ insert into exercicio_fisico
 	(nome, grupo_muscular, imagem, descricao, numero_series, numero_repeticoes, carga_sugerida, nivel_dificuldade) 
 values
 	('Supino', 'Peitoral', 'supino.jpg', 'Deitado no banco, empurre a barra para cima até estender os braços e depois desça de forma controlada até o peito. Fortalece peitoral, ombros e tríceps.', 3, 15, 70.00, 'DIFICIL');
+
+alter table exercicio_fisico drop constraint ck_carga;
+
+alter table exercicio_fisico alter column carga_sugerida float not null;
+
+alter table exercicio_fisico add constraint ck_carga check (carga_sugerida >= 0);
